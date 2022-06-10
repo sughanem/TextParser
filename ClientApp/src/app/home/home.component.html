@@ -1,0 +1,8 @@
+<form (ngSubmit)="parse(input.value)" >
+    <input #input type="text" placeholder="Enter a text">
+    <Button type="submit">Parse</Button>
+</form>
+
+<ul *ngFor="let word of words$ | async">
+    <li>{{ word.character + '   ' + word.repeat}}</li>
+</ul>
