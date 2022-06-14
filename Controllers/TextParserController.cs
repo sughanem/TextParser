@@ -17,9 +17,20 @@ public class TextParserController : ControllerBase
 
 
     [HttpGet("parse/{text}")]
-    public async Task<IEnumerable<Word>> parse(string text)
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult<ApiResult>> parse(string text)
     {
-        return await Task.FromResult(CalcWordNum(text));
+        if (!string.IsNullOrEmpty(text))
+        {
+            var ApiResult = new ApiResult {
+                textLength = text.Length,
+                wordNum = text.Split(" ").Count(),
+                wordList = CalcWordNum(text),
+            };
+            return await Task.FromResult(Ok(ApiResult)); 
+        }
+        return BadRequest();
     }
 
 

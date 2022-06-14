@@ -1,8 +1,20 @@
-<form (ngSubmit)="parse(input.value)" >
-    <input #input type="text" placeholder="Enter a text">
-    <Button type="submit">Parse</Button>
-</form>
+<main>
+    <form (ngSubmit)="parse(input.value)" >
+        <input #input type="text" placeholder="Enter a text">
+        <Button type="submit">Parse</Button>
+    </form>
 
-<ul *ngFor="let word of words$ | async">
-    <li>{{ word.character + '   ' + word.repeat}}</li>
-</ul>
+    <section>
+        <p>Length of the text: {{ textLength }}</p>
+        <p>Number of words in the text: {{ wordNum }}</p>
+    </section>
+
+    <hr>
+
+    <section>
+        <p>Distinct words and the number of occurrence of each:</p>
+        <ul *ngFor="let word of wordList">
+            <li>{{ word.character + '   ' + word.repeat}}</li>
+        </ul>
+    </section>
+</main>

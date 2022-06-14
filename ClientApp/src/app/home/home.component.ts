@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ApiResult } from './ApiResult';
 import { TextParserService } from './text-parser.service';
 import { Word } from './Word';
 
@@ -11,7 +11,9 @@ import { Word } from './Word';
 })
 export class HomeComponent implements OnInit {
 
-  words$: Observable<Word[]> | any;
+  textLength: number | undefined;
+  wordNum: number | undefined;
+  wordList: Word [] | undefined;
 
   constructor(private textParserService: TextParserService) { }
 
@@ -20,7 +22,11 @@ export class HomeComponent implements OnInit {
 
   parse(text: string){
 
-    this.words$ = this.textParserService.parse(text);
+    this.textParserService.parse(text).subscribe( res => {
+      this.textLength = res.textLength;
+      this.wordNum = res.wordNum;
+      this.wordList = res.wordList;
+    })
     
   }
 
